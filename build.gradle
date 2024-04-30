@@ -1,7 +1,46 @@
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.5'
-	id 'io.spring.dependency-management' version '1.1.4'
+	id("io.spring.dependency-management") version "1.0.11.RELEASE"
+	id("org.openapi.generator") version "5.4.0"
+}
+
+openApiGenerate {
+	generatorName.set("spring")
+	inputSpec.set("$projectDir/src/main/resources/api-swagger.yaml")
+	outputDir.set("$buildDir/generated/openapi")
+	apiPackage.set("io.thewokecoder.example.api")
+	modelPackage.set("io.thewokecoder.example.model")
+	configOptions.set(
+		dateLibrary: "java8",
+		generateApis: "true",
+		generateApiTests: "false",
+		generateModels: "true",
+		generateModelTests: "false",
+		generateModelDocumentation: "false",
+		generateSupportingFiles: "false",
+		hideGenerationTimestamp: "true",
+		interfaceOnly: "true",
+		library: "spring-boot",
+		serializableModel: "true",
+		useBeanValidation: "true",
+		useTags: "true",
+		implicitHeaders: "true",
+		openApiNullable: "false",
+		oas3: "true"
+	)
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs("$buildDir/generated/openapi/src/main/java")
+		}
+	}
+}
+
+tasks.withType<JavaCompile> {
+	dependsOn(tasks.openApiGenerate)
 }
 
 group = 'org.ghuh'
@@ -16,8 +55,21 @@ repositories {
 }
 
 dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
+	compileOnly("org.projectlombok:lombok")
+	annotationProcessor("org.projectlombok:lombok")
+	compileOnly("org.projectlombok:lombok")
+	annotationProcessor("org.projectlombok:lombok")
+
+	runtimeOnly("com.h2database:h2")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	implementation("io.swagger.core.v3:swagger-annotations:2.1.12")
 }
 
 tasks.named('test') {
