@@ -39,8 +39,10 @@ sourceSets {
 	}
 }
 
-tasks.withType<JavaCompile> {
-	dependsOn(tasks.openApiGenerate)
+tasks.configureEach { task ->
+	if (task.name.startsWith('compile')) {
+		task.dependsOn(tasks.openApiGenerate)
+	}
 }
 
 group = 'org.ghuh'
