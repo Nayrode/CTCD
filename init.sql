@@ -1,0 +1,11 @@
+CREATE DATABASE city_api;
+
+CREATE TABLE city (
+	id INT UNSIGNED NOT NULL PRIMARY KEY,
+	department_code VARCHAR(255) NOT NULL,
+	insee_code VARCHAR(255),
+	zip_code VARCHAR(255),
+	name VARCHAR(255) NOT NULL,
+	lat FLOAT NOT NULL,
+	lon FLOAT NOT NULL
+);
