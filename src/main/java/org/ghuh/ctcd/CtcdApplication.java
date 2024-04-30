@@ -1,4 +1,4 @@
-package fr.guhg.ctcd;
+package org.ghuh.ctcd;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
