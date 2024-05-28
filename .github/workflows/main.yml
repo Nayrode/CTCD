@@ -11,7 +11,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set Gradle
-      uses: actions/gradle-build-action@v2
+      uses: gradle/gradle-build-action@v2
 
     - name: Run build
       run: ./gradlew build
