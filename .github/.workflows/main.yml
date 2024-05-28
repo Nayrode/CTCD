@@ -1,0 +1,17 @@
+name: Lint Gradle project
+
+on: [push, pull_request]
+
+jobs:
+  build-gradle-project:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout project source
+      uses: actions/checkout@v4
+
+    - name: Set Gradle
+      uses: actions/gradle-build-action@v2
+
+    - name: Run build
+      run: ./gradlew build
