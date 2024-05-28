@@ -10,8 +10,14 @@ jobs:
     - name: Checkout project source
       uses: actions/checkout@v4
 
-    - name: Set Gradle
-      uses: gradle/gradle-build-action@v2
+    - name: Set Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: 17
+        distribution: 'temurin'
+
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v3
 
     - name: Run build
-      run: ./gradlew lint
+      run: ./gradlew build
