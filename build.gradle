@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.5'
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
+	id "nebula.lint" version "17.8.0"
 }
 
 group = 'org.ghuh'
@@ -36,3 +37,5 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+gradleLint.rules = ['all-dependency','dependency-parentheses', 'dependency-tuple']
