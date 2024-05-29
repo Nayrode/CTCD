@@ -14,16 +14,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-#  app:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      db:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
 #        condition: service_healthy
   prometheus:
     image: prom/prometheus:v2.44.0
