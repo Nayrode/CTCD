@@ -1,6 +1,7 @@
 package org.ghuh.ctcd.entities;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,15 +17,15 @@ public class City {
     private int id;
 
     @Column(name = "department_code", nullable = false)
-    @JsonAlias("department_code")
+    @JsonProperty("department_code")
     private String departmentCode;
 
     @Column(name = "insee_code")
-    @JsonAlias("insee_code")
+    @JsonProperty("insee_code")
     private String inseeCode;
 
     @Column(name = "zip_code")
-    @JsonAlias("zip_code")
+    @JsonProperty("zip_code")
     private String zipCode;
 
     @Column(name = "name", nullable=false)
