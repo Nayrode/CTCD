@@ -7,5 +7,10 @@ datasources:
     isDefault: true
   - name: Prostgres
     type: postgres
-    access: proxy
-    url: 
+    url: db:5432
+    user: myuser
+    secureJsonData:
+      password: mypassword
+    jsonData:
+      database: city_api
+      sslmode: disable
