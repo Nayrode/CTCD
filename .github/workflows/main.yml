@@ -41,5 +41,10 @@ jobs:
     - name: Set up Gradle
       uses: gradle/actions/setup-gradle@v3
 
-    - name: Run build
+    - name: Run build without tests
       run: ./gradlew assemble
+
+  build-docker:
+    runs-on: ubuntu-latest
+
+    needs: build-gradle-project
