@@ -45,7 +45,8 @@ public class CityController {
     }
 
     @PostMapping("/city")
-    public City saveCity(@RequestBody City city) {
-        return this.cityService.save(city);
+    public ResponseEntity<City> saveCity(@RequestBody City city) {
+        City savedCity = this.cityService.save(city);
+        return new ResponseEntity<>(savedCity, HttpStatus.CREATED);
     }
 }
