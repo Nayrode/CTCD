@@ -60,10 +60,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: popopolette/app:latest
-
-      - name: Run Docker Compose
-        run: docker-compose -f compose.yml up -d
+          tags: popopolette/api:latest
 
 
     needs: lint-gradle-project
