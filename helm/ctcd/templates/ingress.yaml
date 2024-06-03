@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ctcd
+  labels:
+    project: ctcd
+    app: ctcd
+spec:
+  tls:
+  - secretName: ctcd-tls
+    hosts:
+      - {{ .Values.ctcd.network.url}}
+  rules:
+  - host: {{ .Values.ctcd.network.url}}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: ctcd
+            port: 
+              number: 8080
