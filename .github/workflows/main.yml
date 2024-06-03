@@ -62,7 +62,6 @@ jobs:
           push: true
           tags: ${{ vars.DOCKER_IMAGE_NAME }}:latest
 
-
   cve-check:
     runs-on: ubuntu-latest
     needs: build-docker
