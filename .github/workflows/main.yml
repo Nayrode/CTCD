@@ -72,8 +72,12 @@ jobs:
       uses: aquasecurity/trivy-action@0.20.0
       with:
         image-ref: 'razano/ctcd'
-        format: 'github'
+        format: 'template'
+        template: "@trivy/github-markdown.tpl"
+        output: trivy.md
         exit-code: '1'
         ignore-unfixed: true
         vuln-type: 'library'
         severity: 'CRITICAL,HIGH'
+    - run: cat trivy.md >> $GITHUB_STEP_SUMMARY
+      if: always()
