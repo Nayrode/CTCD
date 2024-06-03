@@ -63,4 +63,15 @@ jobs:
           tags: ${{ vars.DOCKER_IMAGE_NAME }}:latest
 
 
-    needs: lint-gradle-project
+    needs: build-gradle-project
+
+    steps:
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@0.20.0
+      with:
+        image-ref: 'razano/ctcd'
+        format: 'table'
+        exit-code: '1'
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
