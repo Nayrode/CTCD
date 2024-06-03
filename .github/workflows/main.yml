@@ -44,7 +44,7 @@ jobs:
     - name: Run build without tests
       run: ./gradlew assemble
 
-  build-docker:
+  check-cve:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
@@ -68,10 +68,13 @@ jobs:
     needs: build-docker
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@0.20.0
       with:
-        image-ref: 'razano/ctcd'
+        scan-type: 'fs'
+        scan-ref: '.'
         format: 'template'
         template: "@trivy/github-markdown.tpl"
         output: trivy.md
