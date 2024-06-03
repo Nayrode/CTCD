@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ctcd
+  labels:
+    project: ctcd
+    app: ctcd
+spec:
+  replicas: {{ .Values.ctcd.replicas }}
+  selector:
+    matchLabels:
+      project: ctcd
+      app: ctcd
+  template:
+    metadata:
+      labels:
+        project: ctcd
+        app: ctcd
+    spec:
+      containers:
+        - name: ctcd
+          image: {{ .Values.ctcd.image.repository }}:{{ .Values.ctcd.image.tag }}
+          imagePullPolicy: {{ .Values.ctcd.image.pullPolicy }}
+          env:
+            - name: CITY_API_DB_URL
+              value: {{ .Values.ctcd.db.realeseName }}-postgresql:5432
+            - name: CITY_API_DB_USER
+              value: postgres
+            - name: CITY_API_DB_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.ctcd.db.realeseName }}-postgresql
+                  key: postgres-password
+            - name: DB_NAME
+              value: {{ .Values.ctcd.db.name }}
+            - name: CITY_API_PORT
+              value: '8080'
+            - name: VERSION
+              value: {{ .Chart.AppVersion }}
+          resources:
+            limits:
+              memory: '2Gi'
+              cpu: '500m'
+          ports:
+            - containerPort: 8080
+              protocol: TCP

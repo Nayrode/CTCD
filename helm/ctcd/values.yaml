@@ -1,0 +1,17 @@
+# Default values for ctcd.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+ctcd:
+  network:
+    url: ct-cd.fr
+  replicas: 2
+  image:
+    repository: razano/ctcd
+    tag: latest
+    pullPolicy: Always
+  db:
+    realeseName: ctcd-db
+    name: city_api
+  app:
+    # port: 8080 TODO: add port as a variable
+
