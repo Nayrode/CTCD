@@ -63,7 +63,9 @@ jobs:
           tags: ${{ vars.DOCKER_IMAGE_NAME }}:latest
 
 
-    needs: build-gradle-project
+  cve-check:
+    runs-on: ubuntu-latest
+    needs: build-docker
 
     steps:
     - name: Run Trivy vulnerability scanner
