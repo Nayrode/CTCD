@@ -54,7 +54,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: popopolette
-          password: ${{ vars.popopolette }}
+          password: ${{ vars.POPOPOLETTE }}
 
       - name: Build and Push Docker images
         run: |
