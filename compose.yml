@@ -23,6 +23,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 5
 
   prometheus:
     image: prom/prometheus:v2.44.0
@@ -31,6 +36,9 @@ services:
       - "9090:9090"
     volumes:
       - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    # depends_on:
+    #   app:
+    #     condition: service_healthy
 
   grafana:
     image: grafana/grafana:9.5.2
@@ -42,3 +50,6 @@ services:
       - ./monitoring/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./monitoring/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
       - ./monitoring/grafana/provisioning/resource/Spring_Boot.json:/var/lib/grafana/dashboards/Spring_Boot.json
+    # depends_on:
+    #   app:
+    #     condition: service_healthy
