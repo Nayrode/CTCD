@@ -6,7 +6,6 @@ jobs:
 
   lint-gradle-project:
     runs-on: ubuntu-latest
-    needs: check-cve
     steps:
     - name: Checkout project source
       uses: actions/checkout@v4
