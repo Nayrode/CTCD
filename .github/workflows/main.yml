@@ -72,7 +72,8 @@ jobs:
       uses: aquasecurity/trivy-action@0.20.0
       with:
         image-ref: 'razano/ctcd'
-        format: 'github'
+        format: 'template'
+        template: 'https://raw.githubusercontent.com/aquasecurity/trivy/7735ec432a83d5446d13a593ab3b27dd02649ca1/contrib/markdown.tpl'
         output: trivy.md
         exit-code: '1'
         ignore-unfixed: true
