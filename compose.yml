@@ -20,12 +20,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "2022:2022"
-    environment:
-      - CITY_API_ADDR=0.0.0.0
-      - CITY_API_PORT=2022
-      - CITY_API_DB_URL=jdbc:postgresql://db:5432/city_api
-      - CITY_API_DB_USER=myuser
-      - CITY_API_DB_PWD=mypassword
+    env_file:
+      - .env
     depends_on:
       db:
         condition: service_healthy
