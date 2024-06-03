@@ -7,6 +7,8 @@ jobs:
   lint-gradle-project:
     runs-on: ubuntu-latest
 
+    needs: check-cve
+
     steps:
     - name: Checkout project source
       uses: actions/checkout@v4
@@ -69,7 +71,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@0.20.0
       with:
@@ -80,7 +82,7 @@ jobs:
         output: trivy.md
         exit-code: '1'
         ignore-unfixed: true
-        vuln-type: 'library'
+        vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
     - run: cat trivy.md >> $GITHUB_STEP_SUMMARY
       if: always()
