@@ -73,7 +73,7 @@ jobs:
       with:
         image-ref: 'razano/ctcd'
         format: 'template'
-        template: "@/github/workspace/software/trivy/templates/markdown.tpl"
+        template: "@trivy/github-markdown.tpl"
         output: ${{ github.step_summary }}
         exit-code: '1'
         ignore-unfixed: true
