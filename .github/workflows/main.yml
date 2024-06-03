@@ -56,10 +56,11 @@ jobs:
           username: popopolette
           password: ${{ secrets.POPOPOLETTE }}
 
-      - name: Build and Push Docker images
-        run: |
-          docker-compose -f compose.yml build
-          docker-compose -f compose.yml push
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: user/app:latest
 
       - name: Run Docker Compose
         run: docker-compose -f compose.yml up -d
