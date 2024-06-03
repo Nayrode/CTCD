@@ -74,8 +74,10 @@ jobs:
         image-ref: 'razano/ctcd'
         format: 'template'
         template: "@trivy/github-markdown.tpl"
-        output: ${{ github.step_summary }}
+        output: trivy.md
         exit-code: '1'
         ignore-unfixed: true
         vuln-type: 'library'
         severity: 'CRITICAL,HIGH'
+    - run: cat trivy.md >> $GITHUB_STEP_SUMMARY
+      if: always()
