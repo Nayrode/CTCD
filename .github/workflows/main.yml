@@ -58,11 +58,11 @@ jobs:
 
       - name: Build and Push Docker images
         run: |
-          docker-compose -f docker-compose.yml build
-          docker-compose -f docker-compose.yml push
+          docker-compose -f compose.yml build
+          docker-compose -f compose.yml push
 
       - name: Run Docker Compose
-        run: docker-compose -f docker-compose.yml up -d
+        run: docker-compose -f compose.yml up -d
 
 
     needs: lint-gradle-project
