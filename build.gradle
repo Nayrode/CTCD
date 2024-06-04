@@ -9,7 +9,8 @@ group = 'org.ghuh'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -22,7 +23,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	developmentOnly "org.springframework.boot:spring-boot-devtools"
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation "org.springframework.boot:spring-boot-starter-test"
     implementation 'org.springframework.boot:spring-boot-autoconfigure:3.2.5'
@@ -35,6 +35,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+
+	implementation 'io.github.cdimascio:java-dotenv:5.2.2'
 }
 
 tasks.named('test') {
@@ -42,3 +44,41 @@ tasks.named('test') {
 }
 
 gradleLint.rules = ['dependency-parentheses', 'dependency-tuple']
+
+task loadEnv {
+	doFirst {
+		def dotenv = io.github.cdimascio.dotenv.Dotenv.configure().ignoreIfMissing().load()
+		dotenv.entries().each { entry ->
+			project.ext.set(entry.key, entry.value)
+			System.setProperty(entry.key, entry.value)
+		}
+	}
+}
+
+bootRun {
+	dependsOn loadEnv
+	doFirst {
+		def dotenv = io.github.cdimascio.dotenv.Dotenv.configure().ignoreIfMissing().load()
+		dotenv.entries().each { entry ->
+			environment entry.key, entry.value
+		}
+	}
+}
+
+test {
+	dependsOn loadEnv
+	testLogging {
+		events "PASSED", "SKIPPED", "FAILED"
+		exceptionFormat "full"
+		showExceptions true
+		showCauses true
+		showStackTraces true
+	}
+	doFirst {
+		def dotenv = io.github.cdimascio.dotenv.Dotenv.configure().ignoreIfMissing().load()
+		dotenv.entries().each { entry ->
+			environment entry.key, entry.value
+			System.setProperty(entry.key, entry.value)
+		}
+	}
+}
