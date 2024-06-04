@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -20,7 +22,8 @@ import static org.mockito.Mockito.when;
 /*un test qui s'assure que l'insertion dans la base de données fonctionne correctement ;
 	un test qui s'assure que la récupération de la liste des villes fonctionne correctement ;
 	un test qui s'assure que l'endpoint de healthcheck fonctionne correctement.*/
-
+@SpringBootTest(classes = {CtcdApplication.class, CityController.class})
+@AutoConfigureMockMvc
 public class CityControllerTest {
     @Mock
     private CityService cityService;
