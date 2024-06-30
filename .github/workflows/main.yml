@@ -43,6 +43,9 @@ jobs:
     - name: Run build without tests
       run: ./gradlew assemble
 
+    - name: Grant execute permission
+      run: chmod +x gradlew
+
     - name: Run tests
       run: ./gradlew test
 
