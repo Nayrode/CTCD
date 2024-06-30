@@ -6,8 +6,7 @@ ctcd:
     url: ct-cd.fr
   replicas: 2
   image:
-    repository: razano/ctcd
-    tag: latest
+    repository: registry.razano.dev/ctcd/ctcd-app
     pullPolicy: Always
   app:
     port: 8080

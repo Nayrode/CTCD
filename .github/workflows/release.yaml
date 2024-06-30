@@ -7,7 +7,7 @@ on:
 env:
   REGISTRY: registry.razano.dev
   HARBOR_PROJECT: ctcd
-  IMAGE_NAME: ctcd
+  IMAGE_NAME: ctcd-app
 
 jobs:
   build-and-push-image:
