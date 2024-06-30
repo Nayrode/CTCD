@@ -23,24 +23,22 @@ spec:
           imagePullPolicy: {{ .Values.ctcd.image.pullPolicy }}
           env:
             - name: CITY_API_DB_URL
-              value: {{ .Values.ctcd.db.realeseName }}-postgresql:5432
+              value: jdbc:postgresql://{{ .Release.Name }}-postgres:5432/{{ .Values.db.postgresDatabase }}
             - name: CITY_API_DB_USER
-              value: postgres
+              value: {{ .Values.db.postgresUser}}
             - name: CITY_API_DB_PWD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.ctcd.db.realeseName }}-postgresql
+                  name: {{ .Release.Name }}-postgres-secret
                   key: postgres-password
-            - name: DB_NAME
-              value: {{ .Values.ctcd.db.name }}
+            - name: CITY_API_ADDR
+              value: {{ .Values.ctcd.app.address }}
             - name: CITY_API_PORT
-              value: '8080'
-            - name: VERSION
-              value: {{ .Chart.AppVersion }}
+              value: {{ .Values.ctcd.app.port | quote}}
           resources:
             limits:
               memory: '2Gi'
               cpu: '500m'
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.ctcd.app.port }}
               protocol: TCP

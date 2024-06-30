@@ -11,4 +11,4 @@ spec:
     app: ctcd
   ports:
   - port: 8080
-    targetPort: 8080
+    targetPort: {{ .Values.ctcd.app.port }}
