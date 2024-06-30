@@ -7,6 +7,7 @@ on:
 env:
   REGISTRY: registry.razano.dev
   HARBOR_PROJECT: ctcd
+  IMAGE_NAME: ctcd
 
 jobs:
   build-and-push-image:
@@ -35,7 +36,25 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  package-and-push-helm:
+    runs-on: ubuntu-latest
+    name: Build and push Helm chart
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}/${{ env.HARBOR_PROJECT }}
+          username: ${{ secrets.HARBOR_USERNAME }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
+      - name: package Helm chart
+        run: helm package helm/ctcd --version ${{ github.event.release.tag_name }}
+      - name: push Helm chart
+        run: helm push ctcd-*.tgz oci://${{ env.REGISTRY }}/${{ env.HARBOR_PROJECT }}
