@@ -20,12 +20,12 @@ Currently, the CI/CD pipeline is configured to run the following steps:
     - Push Docker image to private Harbor registry
     - Push helm chart to private Harbor registry
 
-After the releasing of new version, the application is deployed in a k3s cluster with argocd.
+After the releasing of a new version, the application is deployed in a k3s cluster with argocd.
 
 You can find the API documentation [here](https://docs.ct-cd.fr/).
 The API is deployed on [https://api.ct-cd.fr](https://api.ct-cd.fr).
 
-If you want to deploy the application for yourself, you can follow the instructions below.
+If you want to deploy the application by yourself, you can follow the instructions below.
 
 ## Installation
 
@@ -43,7 +43,7 @@ cp .env.template .env # modify the .env file with your configuration
 docker-compose up -d
 ```
 
-After starting the application, you can access to different endpoints:
+After starting the application, you can access the different endpoints:
   - api: [http://localhost:2022](http://localhost:2022)
   - grafana: [http://localhost:3000](http://localhost:3000)
   - postgres: [http://localhost:5432](http://localhost:5432)
