@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: ctcd
-          image: {{ .Values.ctcd.image.repository }}:{{ .Values.ctcd.image.tag }}
+          image: {{ .Values.ctcd.image.repository }}:{{ .Chart.Version }}
           imagePullPolicy: {{ .Values.ctcd.image.pullPolicy }}
           env:
             - name: CITY_API_DB_URL
