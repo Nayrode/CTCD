@@ -8,7 +8,15 @@ spec:
       containers:
         - name: init-db
           image: "{{ .Values.db.image.repository }}:{{ .Values.db.image.tag }}"
-          command: ["sh", "-c", "psql -U $POSTGRES_USER -d $POSTGRES_DB -f /docker-entrypoint-initdb.d/init.sql"]
+          command:
+            - sh
+            - -c
+            - |
+              until pg_isready -h {{ .Release.Name }}-postgres -p 5432; do
+                echo "Waiting for PostgreSQL to be ready..."
+                sleep 5
+              done
+              PGPASSWORD=$POSTGRES_PASSWORD psql -h {{ .Release.Name }}-postgres -U $POSTGRES_USER -d $POSTGRES_DB -f /docker-entrypoint-initdb.d/init.sql
           env:
             - name: POSTGRES_USER
               valueFrom:
