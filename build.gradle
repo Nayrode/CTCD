@@ -25,6 +25,8 @@ dependencies {
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation "org.springframework.boot:spring-boot-starter-test"
+	testImplementation 'org.mockito:mockito-core'
+	testImplementation 'com.h2database:h2'
     implementation 'org.springframework.boot:spring-boot-autoconfigure:3.2.5'
     implementation 'org.springframework.boot:spring-boot:3.2.5'
     implementation 'org.springframework:spring-context:6.1.6'
