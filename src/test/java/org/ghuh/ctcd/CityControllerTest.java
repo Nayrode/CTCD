@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +24,7 @@ import static org.mockito.Mockito.when;
 	un test qui s'assure que la récupération de la liste des villes fonctionne correctement ;
 	un test qui s'assure que l'endpoint de healthcheck fonctionne correctement.*/
 @SpringBootTest(classes = {CtcdApplication.class, CityController.class})
+@ActiveProfiles("test")
 @AutoConfigureMockMvc
 public class CityControllerTest {
     @Mock
@@ -30,11 +32,6 @@ public class CityControllerTest {
 
     @InjectMocks
     private CityController cityController;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void testSaveCity() {
