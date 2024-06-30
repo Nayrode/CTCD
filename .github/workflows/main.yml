@@ -3,6 +3,16 @@ name: Test Gradle project
 on: [push, pull_request]
 
 jobs:
+  scan:
+  name: Gitleaks scan
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - uses: gitleaks/gitleaks-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   lint-gradle-project:
     runs-on: ubuntu-latest
