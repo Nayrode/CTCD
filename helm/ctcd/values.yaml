@@ -9,9 +9,47 @@ ctcd:
     repository: razano/ctcd
     tag: latest
     pullPolicy: Always
-  db:
-    realeseName: ctcd-db
-    name: city_api
   app:
-    # port: 8080 TODO: add port as a variable
+    port: 8080
+    address: 127.0.0.1
 
+db:
+  replicaCount: 1
+
+  image:
+    repository: postgres
+    tag: 13.3
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 5432
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+
+  persistence:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 1Gi
+
+  postgresUser: ctcd
+  postgresPassword: password
+  postgresDatabase: ctcd
+
+  initScript: |
+
+    CREATE TABLE city (
+      id SERIAL PRIMARY KEY,
+      department_code VARCHAR(255) NOT NULL,
+      insee_code VARCHAR(255),
+      zip_code VARCHAR(255),
+      name VARCHAR(255) NOT NULL,
+      lat FLOAT NOT NULL,
+      lon FLOAT NOT NULL
+    );
