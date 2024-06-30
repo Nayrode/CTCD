@@ -45,7 +45,7 @@ tasks.named('test') {
 
 gradleLint.rules = ['dependency-parentheses', 'dependency-tuple']
 
-task loadEnv {
+/*task loadEnv {
 	doFirst {
 		def dotenv = io.github.cdimascio.dotenv.Dotenv.configure().ignoreIfMissing().load()
 		dotenv.entries().each { entry ->
@@ -53,9 +53,9 @@ task loadEnv {
 			System.setProperty(entry.key, entry.value)
 		}
 	}
-}
+}*/
 
-bootRun {
+/*bootRun {
 	dependsOn loadEnv
 	doFirst {
 		def dotenv = io.github.cdimascio.dotenv.Dotenv.configure().ignoreIfMissing().load()
@@ -63,10 +63,10 @@ bootRun {
 			environment entry.key, entry.value
 		}
 	}
-}
+}*/
 
 test {
-	dependsOn loadEnv
+	//dependsOn loadEnv
 	testLogging {
 		events "PASSED", "SKIPPED", "FAILED"
 		exceptionFormat "full"
@@ -74,11 +74,11 @@ test {
 		showCauses true
 		showStackTraces true
 	}
-	doFirst {
+	/*doFirst {
 		def dotenv = io.github.cdimascio.dotenv.Dotenv.configure().ignoreIfMissing().load()
 		dotenv.entries().each { entry ->
 			environment entry.key, entry.value
 			System.setProperty(entry.key, entry.value)
 		}
-	}
+	}*/
 }
