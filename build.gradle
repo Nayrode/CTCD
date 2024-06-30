@@ -37,8 +37,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
-
-	implementation 'io.github.cdimascio:java-dotenv:5.2.2'
 }
 
 tasks.named('test') {
@@ -47,28 +45,7 @@ tasks.named('test') {
 
 gradleLint.rules = ['dependency-parentheses', 'dependency-tuple']
 
-/*task loadEnv {
-	doFirst {
-		def dotenv = io.github.cdimascio.dotenv.Dotenv.configure().ignoreIfMissing().load()
-		dotenv.entries().each { entry ->
-			project.ext.set(entry.key, entry.value)
-			System.setProperty(entry.key, entry.value)
-		}
-	}
-}*/
-
-/*bootRun {
-	dependsOn loadEnv
-	doFirst {
-		def dotenv = io.github.cdimascio.dotenv.Dotenv.configure().ignoreIfMissing().load()
-		dotenv.entries().each { entry ->
-			environment entry.key, entry.value
-		}
-	}
-}*/
-
 test {
-	//dependsOn loadEnv
 	testLogging {
 		events "PASSED", "SKIPPED", "FAILED"
 		exceptionFormat "full"
@@ -76,11 +53,4 @@ test {
 		showCauses true
 		showStackTraces true
 	}
-	/*doFirst {
-		def dotenv = io.github.cdimascio.dotenv.Dotenv.configure().ignoreIfMissing().load()
-		dotenv.entries().each { entry ->
-			environment entry.key, entry.value
-			System.setProperty(entry.key, entry.value)
-		}
-	}*/
 }
