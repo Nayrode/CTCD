@@ -1,0 +1,41 @@
+name: Build CTCD app on release
+
+on:
+  release:
+    types: [created]
+
+env:
+  REGISTRY: registry.razano.dev
+  HARBOR_PROJECT: ctcd
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    name: Build and push Docker image
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.HARBOR_USERNAME }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.HARBOR_PROJECT }}/${{ env.IMAGE_NAME }}
+      - name: Build and push Docker image
+        id: push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
