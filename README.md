@@ -23,7 +23,7 @@ Currently, the CI/CD pipeline is configured to run the following steps:
 After the releasing of a new version, the application is deployed in a k3s cluster with argocd.
 
 You can find the API documentation [here](https://docs.ct-cd.fr/).
-The API is deployed on [https://api.ct-cd.fr](https://api.ct-cd.fr).
+The API is deployed on [https://ct-cd.fr](https://ct-cd.fr).
 
 If you want to deploy the application by yourself, you can follow the instructions below.
 
